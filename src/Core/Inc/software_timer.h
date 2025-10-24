@@ -4,7 +4,6 @@
 // Essential libraries
 #include "stdint.h"
 #include "main.h"
-// #include "tim2.h"
 
 // Macros
 #define NUMBER_OF_TIMERS 14 // Total of 14 TIM in STM32F4xx
@@ -23,15 +22,16 @@ typedef struct {
     uint8_t timer_flag;
     uint32_t timer_counter;
     uint32_t duration;
-    uint32_t repetition;
+    int32_t repetition;
 } SoftwareTimer;
 
 /**
  * @brief
  * Function: initSoftwareTimer
  * @param htim: Pointer to TIM handle
+ * @return 0 on success, -1 on error
 */
-void initSoftwareTimer(TIM_HandleTypeDef* htim);
+extern int8_t initSoftwareTimer(TIM_HandleTypeDef* htim);
 
 /**
  * @brief
@@ -40,7 +40,7 @@ void initSoftwareTimer(TIM_HandleTypeDef* htim);
  * @param sw_timer_index: Pointer to software timer index
  * @return Timer flag status (0: not set, 1: set), -1 on error
 */
-uint8_t getFlag(uint8_t timer, uint32_t* sw_timer_index);
+extern int8_t getFlag(uint8_t timer, uint32_t* sw_timer_index);
 
 /**
  * @brief
@@ -49,7 +49,7 @@ uint8_t getFlag(uint8_t timer, uint32_t* sw_timer_index);
  * @param sw_timer_index: Pointer to software timer index
  * @return 0 on success, -1 on error
 */
-uint8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index);
+extern int8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index);
 
 /**
  * @brief
@@ -59,7 +59,7 @@ uint8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index);
  * @param sw_timer_index: Pointer to software timer index
  * @return 0 on success, -1 on error
 */
-uint8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index);
+extern int8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index);
 
 /**
  * @brief
@@ -69,6 +69,6 @@ uint8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index);
  * @param sw_timer_index: Pointer to software timer index
  * @return 0 on success, -1 on error
 */
-uint8_t setRepetition(uint8_t timer, uint32_t* repetition, uint32_t* sw_timer_index);
+extern int8_t setRepetition(uint8_t timer, int32_t* repetition, uint32_t* sw_timer_index);
 
 #endif /* __SOFTWARE_TIMER_H__ */
