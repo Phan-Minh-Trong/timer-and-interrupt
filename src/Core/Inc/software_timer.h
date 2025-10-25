@@ -56,10 +56,11 @@ extern int8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index);
  * Function: setTimer
  * @param timer: Timer number (from 1 to 14)
  * @param duration: Pointer to duration value
+ * @param repetition: Pointer to repetition value (-1 for infinite)
  * @param sw_timer_index: Pointer to software timer index
  * @return 0 on success, -1 on error
 */
-extern int8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index);
+extern int8_t setTimer(uint8_t timer, uint32_t* duration, int32_t* repetition, uint32_t* sw_timer_index);
 
 /**
  * @brief

@@ -272,7 +272,7 @@ SoftwareTimer* g_timers[NUMBER_OF_TIMERS] = {
 };
 
 // Private Functions Definition
-int8_t checkSoftwareTimer(uint8_t timer){
+static int8_t checkSoftwareTimer(uint8_t timer){
 	if (timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL) {
 		return -1;
 	}
@@ -446,7 +446,7 @@ int8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index){
 	return 0;
 }
 
-int8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index){
+int8_t setTimer(uint8_t timer, uint32_t* duration, int32_t* repetition, uint32_t* sw_timer_index){
 	if(timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL)
 		return -1;
 	
@@ -463,7 +463,8 @@ int8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index){
 	}
 
 	g_timers[timer-1][*sw_timer_index].duration = (*duration)/TIM2_INTERVAL;
-	
+	g_timers[timer-1][*sw_timer_index].repetition = (*repetition);
+
 	return 0;
 }
 
