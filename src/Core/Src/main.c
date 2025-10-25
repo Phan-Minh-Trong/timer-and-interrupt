@@ -96,8 +96,13 @@ int main(void)
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   led_7seg_init(&hspi1);
+  led_7seg_setNumber(0, 1);
+  led_7seg_setNumber(1, 5);
+  led_7seg_setNumber(2, 4);
+  led_7seg_setNumber(3, 7);
+  led_7seg_setDot(1, 1);
   initSoftwareTimer(&htim2);
-  setTimer(SW_TIMER2, 1, -1, 0);
+  setTimer(SW_TIMER2, 20, -1, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
