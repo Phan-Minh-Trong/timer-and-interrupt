@@ -286,12 +286,12 @@ static int8_t checkSoftwareTimer(uint8_t timer){
 				timer_ptr[i].timer_flag = 1;
 				
 				if(timer_ptr[i].repetition < 0){
-					setTimer(timer, &timer_ptr[i].duration, &timer_ptr[i].repetition, &i);
+					setTimer(timer, timer_ptr[i].duration, timer_ptr[i].repetition, i);
 				}
 				else if(timer_ptr[i].repetition > 0){
 					--timer_ptr[i].repetition;
 					if(timer_ptr[i].repetition > 0){
-						setTimer(timer, &timer_ptr[i].duration, &timer_ptr[i].repetition, &i);
+						setTimer(timer, timer_ptr[i].duration, timer_ptr[i].repetition, i);
 					}
 				}
 			}
@@ -423,38 +423,38 @@ int8_t initSoftwareTimer(TIM_HandleTypeDef* htim){
 	return 0;
 }
 
-int8_t getFlag(uint8_t timer, uint32_t* sw_timer_index){
+int8_t getFlag(uint8_t timer, uint32_t sw_timer_index){
 	if(timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL)
 		return -1;
 
-	if(sw_timer_index == NULL || *sw_timer_index < 0 || *sw_timer_index >= g_totalSwTimer[timer-1]){
+	if(sw_timer_index < 0 || sw_timer_index >= g_totalSwTimer[timer-1]){
 		return -1;
 	}
-	
-	return g_timers[timer-1][*sw_timer_index].timer_flag;
+
+	return g_timers[timer-1][sw_timer_index].timer_flag;
 }
 	
-int8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index){
+int8_t resetFlag(uint8_t timer, uint32_t sw_timer_index){
 	if(timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL)
 		return -1;
 
-	if(sw_timer_index == NULL || *sw_timer_index < 0 || *sw_timer_index >= g_totalSwTimer[timer-1]){
+	if(sw_timer_index < 0 || sw_timer_index >= g_totalSwTimer[timer-1]){
 		return -1;
 	}
 	
-	g_timers[timer-1][*sw_timer_index].timer_flag = 0;
+	g_timers[timer-1][sw_timer_index].timer_flag = 0;
 	return 0;
 }
 
-int8_t setTimer(uint8_t timer, uint32_t* duration, int32_t* repetition, uint32_t* sw_timer_index){
+int8_t setTimer(uint8_t timer, uint32_t duration, int32_t repetition, uint32_t sw_timer_index){
 	if(timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL)
 		return -1;
-	
-	if(sw_timer_index == NULL || *sw_timer_index < 0 || *sw_timer_index >= g_totalSwTimer[timer-1]){
+
+	if(sw_timer_index < 0 || sw_timer_index >= g_totalSwTimer[timer-1]){
 		return -1;
 	}
 
-	if(duration == NULL || *duration <= 0){
+	if(duration <= 0){
 		return -1;
 	}
 
@@ -462,25 +462,21 @@ int8_t setTimer(uint8_t timer, uint32_t* duration, int32_t* repetition, uint32_t
 		return -1;
 	}
 
-	g_timers[timer-1][*sw_timer_index].duration = (*duration)/TIM2_INTERVAL;
-	g_timers[timer-1][*sw_timer_index].repetition = (*repetition);
+	g_timers[timer-1][sw_timer_index].duration = (duration)/TIM2_INTERVAL;
+	g_timers[timer-1][sw_timer_index].repetition = (repetition);
 
 	return 0;
 }
 
-int8_t setRepetition(uint8_t timer, int32_t* repetition, uint32_t* sw_timer_index){
+int8_t setRepetition(uint8_t timer, int32_t repetition, uint32_t sw_timer_index){
 	if(timer <= 0 || timer > NUMBER_OF_TIMERS || g_timers[timer-1] == NULL)
 		return -1;
-	
-	if(sw_timer_index == NULL || *sw_timer_index < 0 || *sw_timer_index >= g_totalSwTimer[timer-1]){
+
+	if(sw_timer_index < 0 || sw_timer_index >= g_totalSwTimer[timer-1]){
 		return -1;
 	}
 
-	if(repetition == NULL){
-		return -1;
-	}
-
-	g_timers[timer-1][*sw_timer_index].repetition = *repetition;
+	g_timers[timer-1][sw_timer_index].repetition = repetition;
 	return 0;
 }
 

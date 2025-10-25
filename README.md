@@ -35,19 +35,19 @@ The software timer module exposes the following functions. Signatures are in `so
     - Start the HAL timer interrupt for the given `htim`. Call this once for each enabled hardware timer (e.g., in `main()` after HAL timer init).
     - Returns 0 on success, -1 on fail
 
-+ `int8_t getFlag(uint8_t timer, uint32_t* sw_timer_index);`
++ `int8_t getFlag(uint8_t timer, uint32_t sw_timer_index);`
     - Returns the `timer_flag` for the software timer identified by `timer` (which should be `SW_TIMERx`) and `*sw_timer_index` (0-based index into that SW_TIMERx's array).
     - Return value is the flag (0 for not raise, 1 for raise). If arguments are invalid it returns a sentinel value (-1).
 
-+ `int8_t resetFlag(uint8_t timer, uint32_t* sw_timer_index);`
++ `int8_t resetFlag(uint8_t timer, uint32_t sw_timer_index);`
     - Clears the expiration flag for that software timer (implementation detail: resets `timer_flag` to 0).
     - Returns 0 on success, -1 on fail
 
-+ `int8_t setTimer(uint8_t timer, uint32_t* duration, uint32_t* sw_timer_index);`
++ `int8_t setTimer(uint8_t timer, uint32_t duration, uint32_t sw_timer_index);`
     - Set the duration (in ticks of `TIMx_INTERVAL`) for the software timer at the given index. 
     - Returns 0 on success, -1 on fail
 
-+ `int8_t setRepetition(uint8_t timer, int32_t* repetition, uint32_t* sw_timer_index);`
++ `int8_t setRepetition(uint8_t timer, int32_t repetition, uint32_t sw_timer_index);`
     - If supported, set the repetition count (how many times the timer should auto-restart).
     - Returns 0 on sucess, -1 on fail
 
