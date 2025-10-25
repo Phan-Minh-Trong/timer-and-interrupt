@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "software_timer.h"
+#include "led_4x7seg.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,13 +95,19 @@ int main(void)
   MX_TIM2_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-
+  led_7seg_init(&hspi1);
+  initSoftwareTimer(&htim2);
+  setTimer(SW_TIMER2, 1000, -1, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if(getFlag(SW_TIMER2, 0)) {
+        resetFlag(SW_TIMER2, 0);
+        led_7seg_scan();
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
