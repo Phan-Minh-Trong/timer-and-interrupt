@@ -286,12 +286,12 @@ static int8_t checkSoftwareTimer(uint8_t timer){
 				timer_ptr[i].timer_flag = 1;
 				
 				if(timer_ptr[i].repetition < 0){
-					setTimer(timer, &timer_ptr[i].duration, &i);
+					setTimer(timer, &timer_ptr[i].duration, &timer_ptr[i].repetition, &i);
 				}
 				else if(timer_ptr[i].repetition > 0){
 					--timer_ptr[i].repetition;
 					if(timer_ptr[i].repetition > 0){
-						setTimer(timer, &timer_ptr[i].duration, &i);
+						setTimer(timer, &timer_ptr[i].duration, &timer_ptr[i].repetition, &i);
 					}
 				}
 			}
