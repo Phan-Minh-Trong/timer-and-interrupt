@@ -50,3 +50,23 @@ The software timer module exposes the following functions. Signatures are in `so
 + `int8_t setRepetition(uint8_t timer, int32_t* repetition, uint32_t* sw_timer_index);`
     - If supported, set the repetition count (how many times the timer should auto-restart).
     - Returns 0 on sucess, -1 on fail
+
+## 7 Segments Clock LED Clock
+### Basic structure
+The 7 segments Clock LED (C93) is connected to the STM32F407ZGT6 via 2 ICs 74HC595, take a look at the schematic below:
+```
+                                        ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+                                        ┃                                        ┃
+              ┏━━━━┳┳━━━━┓              ┃              ┏━━━━┳┳━━━━┓              ┃
+      DIG.1 ━━┫1   ╰╯  16┣━━ VCC        ┃  CLOCK LED ━━┫1   ╰╯  16┣━━ VCC        ┃
+      DIG.2 ━━┫2       15┣━━ DIG.4      ┃  CLOCK LED ━━┫2       15┣━━ CLOCK LED  ┃
+      DIG.3 ━━┫3   74  14┣━━ ━━━━━━━━━━━┛  CLOCK LED ━━┫3   74  14┣━━ PB5(STM32) ┃
+          X ━━┫4   HC  13┣━━ GND           CLOCK LED ━━┫4   HC  13┣━━ GND        ┃
+          X ━━┫5  595  12┣━━ PG6 (STM32)   CLOCK LED ━━┫5  595  12┣━━ PG6(STM32) ┃
+          X ━━┫6       11┣━━ PB3 (STM32)   CLOCK LED ━━┫6       11┣━━ PB3(STM32) ┃
+          X ━━┫7       10┣━━ VCC           CLOCK LED ━━┫7       10┣━━ VCC        ┃
+         GND━━┫8        9┣━━ X                    GND━━┫8        9┣━━ ━━━━━━━━━━━┛
+              ┗━━━━━━━━━━┛                             ┗━━━━━━━━━━┛              
+```
+
+
