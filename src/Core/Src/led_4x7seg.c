@@ -106,20 +106,20 @@ void led_7seg_scan(void){
     switch (current_scan_position)
     {
     case 0:
-        spi_transmit_buffer[0] &= 0xB0;
-        spi_transmit_buffer[1] &= led_7seg_display_value[0];
+        spi_transmit_buffer[0] = 0xB0;
+        spi_transmit_buffer[1] = led_7seg_display_value[0];
         break;
     case 1:
-        spi_transmit_buffer[0] &= 0xD0;
-        spi_transmit_buffer[1] &= led_7seg_display_value[1];
+        spi_transmit_buffer[0] = 0xD0;
+        spi_transmit_buffer[1] = led_7seg_display_value[1];
         break;
     case 2:
-        spi_transmit_buffer[0] &= 0xE0;
-        spi_transmit_buffer[1] &= led_7seg_display_value[2];
+        spi_transmit_buffer[0] = 0xE0;
+        spi_transmit_buffer[1] = led_7seg_display_value[2];
         break;
     case 3:
-        spi_transmit_buffer[0] &= 0x70;
-        spi_transmit_buffer[1] &= led_7seg_display_value[3];
+        spi_transmit_buffer[0] = 0x70;
+        spi_transmit_buffer[1] = led_7seg_display_value[3];
         break;
     }
     current_scan_position = (current_scan_position + 1) % 4;

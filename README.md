@@ -53,20 +53,21 @@ The software timer module exposes the following functions. Signatures are in `so
 
 ## 7 Segments Clock LED Clock
 ### Basic structure
-The 7 segments Clock LED (C93) is connected to the STM32F407ZGT6 via 2 ICs 74HC595, take a look at the schematic below:
+The 7 segments Clock LED (C93) is controlled by STM32F407ZGT6 through 2 ICs 74HC595 (using SPI protocol), take a look at the schematic below:
 ```
                                         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
                                         ┃                                        ┃
               ┏━━━━┳┳━━━━┓              ┃              ┏━━━━┳┳━━━━┓              ┃
-      DIG.1 ━━┫1   ╰╯  16┣━━ VCC        ┃  CLOCK LED ━━┫1   ╰╯  16┣━━ VCC        ┃
-      DIG.2 ━━┫2       15┣━━ DIG.4      ┃  CLOCK LED ━━┫2       15┣━━ CLOCK LED  ┃
-      DIG.3 ━━┫3   74  14┣━━ ━━━━━━━━━━━┛  CLOCK LED ━━┫3   74  14┣━━ PB5(STM32) ┃
-          X ━━┫4   HC  13┣━━ GND           CLOCK LED ━━┫4   HC  13┣━━ GND        ┃
-          X ━━┫5  595  12┣━━ PG6 (STM32)   CLOCK LED ━━┫5  595  12┣━━ PG6(STM32) ┃
-          X ━━┫6       11┣━━ PB3 (STM32)   CLOCK LED ━━┫6       11┣━━ PB3(STM32) ┃
-          X ━━┫7       10┣━━ VCC           CLOCK LED ━━┫7       10┣━━ VCC        ┃
+          X ━━┫1   ╰╯  16┣━━ VCC        ┃  CLOCK LED ━━┫1   ╰╯  16┣━━ VCC        ┃
+          X ━━┫2       15┣━━ X          ┃  CLOCK LED ━━┫2       15┣━━ CLOCK LED  ┃
+          X ━━┫3   74  14┣━━ ━━━━━━━━━━━┛  CLOCK LED ━━┫3   74  14┣━━ PB5(STM32) ┃
+      DIG.3 ━━┫4   HC  13┣━━ GND           CLOCK LED ━━┫4   HC  13┣━━ GND        ┃
+      DIG.2 ━━┫5  595  12┣━━ PG6 (STM32)   CLOCK LED ━━┫5  595  12┣━━ PG6(STM32) ┃
+      DIG.1 ━━┫6       11┣━━ PB3 (STM32)   CLOCK LED ━━┫6       11┣━━ PB3(STM32) ┃
+      DIG.4 ━━┫7       10┣━━ VCC           CLOCK LED ━━┫7       10┣━━ VCC        ┃
          GND━━┫8        9┣━━ X                    GND━━┫8        9┣━━ ━━━━━━━━━━━┛
               ┗━━━━━━━━━━┛                             ┗━━━━━━━━━━┛              
 ```
-
-
+`DIG.x (with x from 1 to 4): toggle the specified 7 segments Led`
+`CLOCK LED: toggle specified Led in 7 segments Led`
+`PB5 Pin: Sends signals to the 74hc595 to control Led`
