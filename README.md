@@ -51,7 +51,7 @@ The software timer module exposes the following functions. Signatures are in `so
     - If supported, set the repetition count (how many times the timer should auto-restart).
     - Returns 0 on sucess, -1 on fail
 
-## 7 Segments Clock LED Clock
+## 7 Segments Clock LED
 ### Basic structure
 The 7 segments Clock LED (C93) is controlled by STM32F407ZGT6 through 2 ICs 74HC595 (using SPI protocol), take a look at the schematic below:
 ```
@@ -71,3 +71,40 @@ The 7 segments Clock LED (C93) is controlled by STM32F407ZGT6 through 2 ICs 74HC
 `DIG.x (with x from 1 to 4): toggle the specified 7 segments Led`
 `CLOCK LED: toggle specified Led in 7 segments Led`
 `PB5 Pin: Sends signals to the 74hc595 to control Led`
+
+### Using 7 Segments Clock LED
+The 7 Segments Clock LED module exposes the following functions. Signatures are in `led_4x7seg.h`.
+
++ `int8_t led_7seg_init(SPI_HandleTypeDef* hspi);`
+    - Init 4 7 segments Leds, should be called once after init SPI
+    - Returns 0 on success, -1 on fail
+
++ `int8_t led_7seg_setNumber(uint8_t position, uint8_t number);`
+    - Set the number for the specified led
+    - Returns 0 on success, -1 on fail
+
++ `int8_t led_7seg_getDisplayValue(uint8_t position);`
+    - Get the display number of the specified led
+    - Returns the value of the led, -1 on fail
+
++ `int8_t led_7seg_setDot(uint8_t position, uint8_t state);`
+    - Set the dot for the specified led
+    - Returns 0 on success, -1 on fail
+
++ `int8_t led_7seg_getDotState(uint8_t position);`
+    - Get the dot state of the specified led
+    - Returns state of the dot (0: off, 1: on), -1 on error
+
++ `void led_7seg_scan(void);`
+    - Scan 4 7 segments leds
+    - This function should be polled when interrupt occurs
+
++ `int8_t led_7seg_test(void);`
+    - Test all 7 segments Leds
+    - Returns 0 on success, -1 on fail
+
++ `void led_7seg_turnOffAll(void);`
+    - Turn off all 7 segments Leds
+
++ `void led_7seg_turnOnAll(void);`
+    - Turn on all 7 segments Leds
