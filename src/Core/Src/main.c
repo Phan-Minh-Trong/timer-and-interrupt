@@ -97,7 +97,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   led_7seg_init(&hspi1);
   initSoftwareTimer(&htim2);
-  setTimer(SW_TIMER2, 10, -1, 0);
+  setTimer(SW_TIMER2, 1, -1, 0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
